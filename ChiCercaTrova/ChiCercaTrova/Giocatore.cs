@@ -8,13 +8,20 @@ namespace ChiCercaTrova
 {
     class Giocatore
     {
-        public List<int> Mazzo;
+        // Lista che rappresenta il mazzo personale del giocatore
+        public List<int> Mazzo = new List<int>();
 
-        public void CreaMazzo()
+        // Metodo per aggiungere una o più carte al mazzo del giocatore
+        public void PrendiCarte(List<int> carte)
         {
-
+            Mazzo.AddRange(carte); // Aggiunge le carte ricevute alla lista Mazzo
         }
 
+        // Metodo per mostrare le carte attualmente nel mazzo del giocatore
+        public void MostraCarte()
+        {
+            Console.WriteLine("Carte: " + string.Join(", ", Mazzo)); // Stampa tutte le carte del giocatore separate da virgola
+        }
 
     }
 }
