@@ -11,20 +11,20 @@ namespace ChiCercaTrova
             // Creazione del mazzo di carte con valori predefiniti
             List<int> mazzo = new List<int> { 1, 1, 2, 2, 3, 3, 0, 0, 0, 0 };
 
-            Random r = new Random(); // Generatore di numeri casuali
+            Random r = new Random(); 
 
             // Ciclo per assegnare 5 carte a ciascun giocatore
-            for (int k = 0; k < 5; k++)
+            for (int k = 0; k < mazzo.Count / 2; k++)
             {
                 // Estrazione casuale di una carta per il primo giocatore
-                int i = r.Next(mazzo.Count); // Genera un indice casuale valido
-                g1.PrendiCarte(new List<int> { mazzo[i] }); // Assegna la carta al giocatore 1
-                mazzo.RemoveAt(i); // Rimuove la carta assegnata dal mazzo
+                int i = r.Next(mazzo.Count); 
+                g1.PrendiCarte(new List<int> { mazzo[i] }); 
+                mazzo.RemoveAt(i); 
 
                 // Estrazione casuale di una carta per il secondo giocatore
-                i = r.Next(mazzo.Count); // Genera un nuovo indice casuale
-                g2.PrendiCarte(new List<int> { mazzo[i] }); // Assegna la carta al giocatore 2
-                mazzo.RemoveAt(i); // Rimuove la carta assegnata dal mazzo
+                i = r.Next(mazzo.Count);
+                g2.PrendiCarte(new List<int> { mazzo[i] }); 
+                mazzo.RemoveAt(i); 
             }
         }
     }
