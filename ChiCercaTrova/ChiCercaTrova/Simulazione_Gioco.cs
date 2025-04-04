@@ -13,7 +13,7 @@ namespace ChiCercaTrova
 
             Random r = new Random(); 
 
-            // Ciclo per assegnare 5 carte a ciascun giocatore
+            // Ciclo per assegnare le carte a ciascun giocatore
             for (int k = 0; k < mazzo.Count / 2; k++)
             {
                 // Estrazione casuale di una carta per il primo giocatore
