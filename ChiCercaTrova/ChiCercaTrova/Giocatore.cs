@@ -23,40 +23,63 @@ namespace ChiCercaTrova
             Console.WriteLine("Carte: " + string.Join(", ", mazzo)); // Stampa tutte le carte del giocatore separate da virgola
         }
 
+        // Metodo per giocare le carte
         public List<int> GiocaCarta(int cartaAvv)
         {
-            List<int> carteGiocate = new List<int>();  // Lista per memorizzare le carte giocate
+            List<int> carteGiocate = new List<int>();
 
             if (cartaAvv == 0 || cartaAvv == 1)
             {
-                // Se l'avversario gioca la carta 0 o 1, prendi una carta dal mazzo
                 carteGiocate.Add(mazzo[0]);
-                mazzo.RemoveAt(0);  // Rimuovi la carta dal mazzo
+                mazzo.RemoveAt(0);
             }
             else if (cartaAvv == 2)
             {
-                // Se l'avversario gioca la carta 2, prendi due carte dal mazzo
+                // Gioca la prima carta
                 carteGiocate.Add(mazzo[0]);
+                int primaCarta = mazzo[0];
                 mazzo.RemoveAt(0);
-                carteGiocate.Add(mazzo[0]);
-                mazzo.RemoveAt(0);
+
+                // Se la prima carta NON è 1, 2 o 3, gioca anche la seconda
+                if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
+                {
+                    carteGiocate.Add(mazzo[0]);
+                    mazzo.RemoveAt(0);
+                }
             }
             else if (cartaAvv == 3)
             {
-                // Se l'avversario gioca la carta 3, prendi tre carte dal mazzo
+                // Gioca la prima carta
                 carteGiocate.Add(mazzo[0]);
+                int primaCarta = mazzo[0];
                 mazzo.RemoveAt(0);
-                carteGiocate.Add(mazzo[0]);
-                mazzo.RemoveAt(0);
-                carteGiocate.Add(mazzo[0]);
-                mazzo.RemoveAt(0);
+
+                // Se la prima carta NON è 1, 2 o 3, procedi
+                if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
+                {
+                    // Gioca la seconda
+                    carteGiocate.Add(mazzo[0]);
+                    int secondaCarta = mazzo[0];
+                    mazzo.RemoveAt(0);
+
+                    // Se anche la seconda NON è 1, 2 o 3, gioca la terza
+                    if (secondaCarta != 1 && secondaCarta != 2 && secondaCarta != 3)
+                    {
+                        carteGiocate.Add(mazzo[0]);
+                        mazzo.RemoveAt(0);
+                    }
+                }
             }
 
-            // Altrimenti, non succede nulla (nessuna carta viene giocata)
-            return carteGiocate;  // Restituisci la lista di carte giocate
+            return carteGiocate;
         }
+
+        public List<int> ControllaEGioca(List<int> carteGiocatore)
+        { 
+            int ultimaCarta = carteGiocatore[carteGiocatore.Count - 1]; // Prendi l'ultima carta da 
+            return GiocaCarta(ultimaCarta);  // Gioca in base a quella
+        }
+
         
-
-
     }
 }
