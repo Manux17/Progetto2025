@@ -14,12 +14,13 @@ namespace ChiCercaTrova
             Random r = new Random();
 
             int dimensione = mazzo.Count;
+            int i;
 
             // Ciclo per assegnare le carte a ciascun giocatore
             for (int k = 0; k < dimensione / 2; k++)
             {
                 // Estrazione casuale di una carta per il primo giocatore
-                int i = r.Next(mazzo.Count); 
+                i = r.Next(mazzo.Count); 
                 g1.PrendiCarte(new List<int> { mazzo[i] }); 
                 mazzo.RemoveAt(i); 
 

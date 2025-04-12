@@ -23,7 +23,7 @@ namespace ChiCercaTrova
             Console.WriteLine("Carte: " + string.Join(", ", mazzo)); // Stampa tutte le carte del giocatore separate da virgola
         }
 
-        // Metodo per giocare le carte
+        // Metodo per giocare le carte  DA RIVEDERE
         public List<int> GiocaCarta(int cartaAvv)
         {
             List<int> carteGiocate = new List<int>();
@@ -74,7 +74,7 @@ namespace ChiCercaTrova
             return carteGiocate;
         }
 
-        public List<int> ControllaEGioca(List<int> carteGiocatore)
+        public List<int> ControllaEGioca(List<int> carteGiocatore) //DA RIVEDERE
         { 
             int ultimaCarta = carteGiocatore[carteGiocatore.Count - 1]; // Prendi l'ultima carta da 
             return GiocaCarta(ultimaCarta);  // Gioca in base a quella
