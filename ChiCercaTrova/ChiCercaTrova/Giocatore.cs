@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChiCercaTrova
 {
@@ -23,15 +20,24 @@ namespace ChiCercaTrova
             Console.WriteLine("Carte: " + string.Join(", ", mazzo)); // Stampa tutte le carte del giocatore separate da virgola
         }
 
-        // Metodo per giocare le carte  DA RIVEDERE
-        public List<int> GiocaCarta(int cartaAvv)
+        // Metodo per giocare le carte  
+        public bool GiocaCarta(int cartaAvv, List<int> carteGiocate)
         {
-            List<int> carteGiocate = new List<int>();
-
-            if (cartaAvv == 0 || cartaAvv == 1)
+            if (cartaAvv == 0)
             {
                 carteGiocate.Add(mazzo[0]);
                 mazzo.RemoveAt(0);
+            }
+            else if (cartaAvv == 1)
+            {
+                carteGiocate.Add(mazzo[0]);
+                int primaCarta = mazzo[0];
+                mazzo.RemoveAt(0);
+
+                if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
+                {
+                    return true;
+                }
             }
             else if (cartaAvv == 2)
             {
@@ -44,7 +50,13 @@ namespace ChiCercaTrova
                 if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
                 {
                     carteGiocate.Add(mazzo[0]);
+                    int secondaCarta = mazzo[0];
                     mazzo.RemoveAt(0);
+
+                    if (secondaCarta != 1 && secondaCarta != 2 && secondaCarta != 3)
+                    {
+                        return true;
+                    }
                 }
             }
             else if (cartaAvv == 3)
@@ -66,20 +78,37 @@ namespace ChiCercaTrova
                     if (secondaCarta != 1 && secondaCarta != 2 && secondaCarta != 3)
                     {
                         carteGiocate.Add(mazzo[0]);
+                        int terzaCarta = mazzo[0];
                         mazzo.RemoveAt(0);
+
+                        // Se anche la seconda NON è 1, 2 o 3, gioca la terza
+                        if (terzaCarta != 1 && terzaCarta != 2 && terzaCarta != 3)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
 
-            return carteGiocate;
+            return false;
         }
 
-        public List<int> ControllaEGioca(List<int> carteGiocatore) //DA RIVEDERE
-        { 
-            int ultimaCarta = carteGiocatore[carteGiocatore.Count - 1]; // Prendi l'ultima carta da 
-            return GiocaCarta(ultimaCarta);  // Gioca in base a quella
+        public bool ControllaEGioca(List<int> carteGiocate)
+        {
+            int ultimaCarta;
+
+            if (carteGiocate.Count > 0)
+            {
+                ultimaCarta = carteGiocate[carteGiocate.Count - 1]; // Prendi l'ultima carta
+            }
+            else
+            {
+                ultimaCarta = 0;
+            }
+
+            return GiocaCarta(ultimaCarta, carteGiocate);  // Gioca in base a quella
         }
 
-        
+
     }
 }

@@ -20,14 +20,43 @@ namespace ChiCercaTrova
             for (int k = 0; k < dimensione / 2; k++)
             {
                 // Estrazione casuale di una carta per il primo giocatore
-                i = r.Next(mazzo.Count); 
-                g1.PrendiCarte(new List<int> { mazzo[i] }); 
-                mazzo.RemoveAt(i); 
+                i = r.Next(mazzo.Count);
+                g1.PrendiCarte(new List<int> { mazzo[i] });
+                mazzo.RemoveAt(i);
 
                 // Estrazione casuale di una carta per il secondo giocatore
                 i = r.Next(mazzo.Count);
-                g2.PrendiCarte(new List<int> { mazzo[i] }); 
-                mazzo.RemoveAt(i); 
+                g2.PrendiCarte(new List<int> { mazzo[i] });
+                mazzo.RemoveAt(i);
+            }
+        }
+        public void GiocaPartita(Giocatore g1, Giocatore g2)
+        {
+            List<int> carte_Giocate = new List<int>(); 
+
+            while (g1.mazzo.Count > 0 && g2.mazzo.Count > 0)
+            {
+                if (g1.ControllaEGioca(carte_Giocate))
+                {
+                    g2.PrendiCarte(carte_Giocate);
+                    carte_Giocate.Clear();
+                }
+                if (g2.ControllaEGioca(carte_Giocate))
+                {
+                    g1.PrendiCarte(carte_Giocate);
+                    carte_Giocate.Clear();
+
+                }
+            }
+
+            if (g1.mazzo.Count == 0)
+            {
+                Console.WriteLine("Ha vinto il giocatore 2");
+            }
+            else
+            {
+                Console.WriteLine("Ha vinto il giocatore 1");
+
             }
         }
     }

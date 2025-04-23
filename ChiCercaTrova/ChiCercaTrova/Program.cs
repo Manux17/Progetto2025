@@ -17,6 +17,14 @@ namespace ChiCercaTrova
 
             Console.WriteLine("Carte Giocatore 2:");
             giocatore2.MostraCarte();
+
+            gioco.GiocaPartita(giocatore1, giocatore2);
+
+            Console.WriteLine("Carte Giocatore 1:");
+            giocatore1.MostraCarte();
+
+            Console.WriteLine("Carte Giocatore 2:");
+            giocatore2.MostraCarte();
         }
     }
 }
