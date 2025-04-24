@@ -8,28 +8,20 @@ namespace ChiCercaTrova
         // Metodo che distribuisce le carte ai due giocatori
         public void Dai_Carte(Giocatore g1, Giocatore g2)
         {
-            // Creazione del mazzo di carte con valori predefiniti
             List<int> mazzo = new List<int> { 1, 1, 2, 2, 3, 3, 0, 0, 0, 0 };
-
             Random r = new Random();
-
-            int dimensione = mazzo.Count;
-            int i;
-
-            // Ciclo per assegnare le carte a ciascun giocatore
-            for (int k = 0; k < dimensione / 2; k++)
+            while (mazzo.Count > 0)
             {
-                // Estrazione casuale di una carta per il primo giocatore
-                i = r.Next(mazzo.Count);
-                g1.PrendiCarte(new List<int> { mazzo[i] });
-                mazzo.RemoveAt(i);
+                int idx = r.Next(mazzo.Count);
+                g1.PrendiCarte(new List<int> { mazzo[idx] });
+                mazzo.RemoveAt(idx);
 
-                // Estrazione casuale di una carta per il secondo giocatore
-                i = r.Next(mazzo.Count);
-                g2.PrendiCarte(new List<int> { mazzo[i] });
-                mazzo.RemoveAt(i);
+                idx = r.Next(mazzo.Count);
+                g2.PrendiCarte(new List<int> { mazzo[idx] });
+                mazzo.RemoveAt(idx);
             }
         }
+
         public void GiocaPartita(Giocatore g1, Giocatore g2)
         {
             List<int> carte_Giocate = new List<int>(); 
@@ -39,13 +31,11 @@ namespace ChiCercaTrova
                 if (g1.ControllaEGioca(carte_Giocate))
                 {
                     g2.PrendiCarte(carte_Giocate);
-                    carte_Giocate.Clear();
+     
                 }
                 if (g2.ControllaEGioca(carte_Giocate))
                 {
                     g1.PrendiCarte(carte_Giocate);
-                    carte_Giocate.Clear();
-
                 }
             }
 

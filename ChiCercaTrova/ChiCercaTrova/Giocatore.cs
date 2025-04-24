@@ -11,86 +11,35 @@ namespace ChiCercaTrova
         // Metodo per aggiungere una o più carte al mazzo del giocatore
         public void PrendiCarte(List<int> carte)
         {
-            mazzo.AddRange(carte); // Aggiunge le carte ricevute alla lista Mazzo
+            // Aggiungo tutte le carte vinte al fondo del mazzo
+            mazzo.AddRange(carte);
+            carte.Clear();
         }
-
         // Metodo per mostrare le carte attualmente nel mazzo del giocatore
         public void MostraCarte()
         {
             Console.WriteLine("Carte: " + string.Join(", ", mazzo)); // Stampa tutte le carte del giocatore separate da virgola
         }
 
+        // Gioca fino a max n carte, fermandosi se incontra una carta speciale (1,2,3)
+        // Ritorna true se l'avversario deve raccogliere tutte le carte giocate
         // Metodo per giocare le carte  
-        public bool GiocaCarta(int cartaAvv, List<int> carteGiocate)
+        public bool GiocaCarte(int maxCarte, List<int> carteGiocate)
         {
-            if (cartaAvv == 0)
+            for (int i = 0; i < maxCarte && mazzo.Count > 0; i++)
             {
-                carteGiocate.Add(mazzo[0]);
+                int carta = mazzo[0];
                 mazzo.RemoveAt(0);
-            }
-            else if (cartaAvv == 1)
-            {
-                carteGiocate.Add(mazzo[0]);
-                int primaCarta = mazzo[0];
-                mazzo.RemoveAt(0);
+                carteGiocate.Add(carta);
 
-                if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
+                // Se la carta è una penitenza (1,2,3), interrompo e passaggio turno
+                if (carta == 1 || carta == 2 || carta == 3)
                 {
-                    return true;
+                    return false;
                 }
             }
-            else if (cartaAvv == 2)
-            {
-                // Gioca la prima carta
-                carteGiocate.Add(mazzo[0]);
-                int primaCarta = mazzo[0];
-                mazzo.RemoveAt(0);
-
-                // Se la prima carta NON è 1, 2 o 3, gioca anche la seconda
-                if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
-                {
-                    carteGiocate.Add(mazzo[0]);
-                    int secondaCarta = mazzo[0];
-                    mazzo.RemoveAt(0);
-
-                    if (secondaCarta != 1 && secondaCarta != 2 && secondaCarta != 3)
-                    {
-                        return true;
-                    }
-                }
-            }
-            else if (cartaAvv == 3)
-            {
-                // Gioca la prima carta
-                carteGiocate.Add(mazzo[0]);
-                int primaCarta = mazzo[0];
-                mazzo.RemoveAt(0);
-
-                // Se la prima carta NON è 1, 2 o 3, procedi
-                if (primaCarta != 1 && primaCarta != 2 && primaCarta != 3)
-                {
-                    // Gioca la seconda
-                    carteGiocate.Add(mazzo[0]);
-                    int secondaCarta = mazzo[0];
-                    mazzo.RemoveAt(0);
-
-                    // Se anche la seconda NON è 1, 2 o 3, gioca la terza
-                    if (secondaCarta != 1 && secondaCarta != 2 && secondaCarta != 3)
-                    {
-                        carteGiocate.Add(mazzo[0]);
-                        int terzaCarta = mazzo[0];
-                        mazzo.RemoveAt(0);
-
-                        // Se anche la seconda NON è 1, 2 o 3, gioca la terza
-                        if (terzaCarta != 1 && terzaCarta != 2 && terzaCarta != 3)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
+            // Se arrivo qui, ho giocato tutte le carte richieste senza trovare penitenza
+            return true;
         }
 
         public bool ControllaEGioca(List<int> carteGiocate)
@@ -99,16 +48,28 @@ namespace ChiCercaTrova
 
             if (carteGiocate.Count > 0)
             {
-                ultimaCarta = carteGiocate[carteGiocate.Count - 1]; // Prendi l'ultima carta
+                // Prendo l'ultima carta giocata
+                ultimaCarta = carteGiocate[carteGiocate.Count - 1];
             }
             else
             {
+                // Nessuna carta giocata: consideriamo 0
                 ultimaCarta = 0;
             }
 
-            return GiocaCarta(ultimaCarta, carteGiocate);  // Gioca in base a quella
+            // Determino quante carte giocare
+            int carteDaGiocare;
+            if (ultimaCarta >= 1 && ultimaCarta <= 3)
+            {
+                carteDaGiocare = ultimaCarta;
+            }
+            else
+            {
+                carteDaGiocare = 1;
+            }
+
+            // Chiamo il metodo di gioco con il numero calcolato
+            return GiocaCarte(carteDaGiocare, carteGiocate);
         }
-
-
     }
 }
