@@ -11,8 +11,11 @@ namespace ChiCercaTrova
         // Metodo per aggiungere una o più carte al mazzo del giocatore
         public void PrendiCarte(List<int> carte)
         {
-            // Aggiungo tutte le carte vinte al fondo del mazzo
-            mazzo.AddRange(carte);
+            // Aggiungo tutte le carte vinte al fondo del mazzo 
+            foreach (int carta in carte)
+            {
+                mazzo.Add(carta);
+            }
             carte.Clear();
         }
         // Metodo per mostrare le carte attualmente nel mazzo del giocatore
@@ -24,22 +27,33 @@ namespace ChiCercaTrova
         // Gioca fino a max n carte, fermandosi se incontra una carta speciale (1,2,3)
         // Ritorna true se l'avversario deve raccogliere tutte le carte giocate
         // Metodo per giocare le carte  
-        public bool GiocaCarte(int maxCarte, List<int> carteGiocate)
+        public bool GiocaCarte(int carteDaGiocare, List<int> carteGiocate)
         {
-            for (int i = 0; i < maxCarte && mazzo.Count > 0; i++)
+            if(carteDaGiocare == -1)
             {
                 int carta = mazzo[0];
                 mazzo.RemoveAt(0);
                 carteGiocate.Add(carta);
-
-                // Se la carta è una penitenza (1,2,3), interrompo e passaggio turno
-                if (carta == 1 || carta == 2 || carta == 3)
-                {
-                    return false;
-                }
+                return false;
             }
-            // Se arrivo qui, ho giocato tutte le carte richieste senza trovare penitenza
-            return true;
+            else
+            {
+                for (int i = 0; i < carteDaGiocare && mazzo.Count > 0; i++)
+                {
+                    int carta = mazzo[0];
+                    mazzo.RemoveAt(0);
+                    carteGiocate.Add(carta);
+
+                    // Se la carta è una penitenza (1,2,3), interrompo e passaggio turno
+                    if (carta == 1 || carta == 2 || carta == 3)
+                    {
+                        return false;
+                    }
+                }
+                // Se arrivo qui, ho giocato tutte le carte richieste senza trovare penitenza
+                return true;
+            }
+            
         }
 
         public bool ControllaEGioca(List<int> carteGiocate)
@@ -65,7 +79,7 @@ namespace ChiCercaTrova
             }
             else
             {
-                carteDaGiocare = 1;
+                carteDaGiocare = -1;
             }
 
             // Chiamo il metodo di gioco con il numero calcolato
