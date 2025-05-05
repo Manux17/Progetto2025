@@ -21,7 +21,12 @@ namespace ChiCercaTrova
         // Metodo per mostrare le carte attualmente nel mazzo del giocatore
         public void MostraCarte()
         {
-            Console.WriteLine("Carte: " + string.Join(", ", mazzo)); // Stampa tutte le carte del giocatore separate da virgola
+            foreach (int carta in mazzo)
+            {
+                Console.Write(carta);
+                Console.Write("-");
+            }
+            Console.WriteLine();
         }
 
         // Gioca fino a max n carte, fermandosi se incontra una carta speciale (1,2,3)
@@ -29,7 +34,7 @@ namespace ChiCercaTrova
         // Metodo per giocare le carte  
         public bool GiocaCarte(int carteDaGiocare, List<int> carteGiocate)
         {
-            if(carteDaGiocare == -1)
+            if(carteDaGiocare == 0)
             {
                 int carta = mazzo[0];
                 mazzo.RemoveAt(0);
@@ -49,7 +54,13 @@ namespace ChiCercaTrova
                     {
                         return false;
                     }
+
+                    if(mazzo.Count == 0)
+                    {
+                        return true;
+                    }
                 }
+
                 // Se arrivo qui, ho giocato tutte le carte richieste senza trovare penitenza
                 return true;
             }
@@ -58,28 +69,17 @@ namespace ChiCercaTrova
 
         public bool ControllaEGioca(List<int> carteGiocate)
         {
-            int ultimaCarta;
+            int carteDaGiocare;
 
             if (carteGiocate.Count > 0)
             {
                 // Prendo l'ultima carta giocata
-                ultimaCarta = carteGiocate[carteGiocate.Count - 1];
+                carteDaGiocare = carteGiocate[carteGiocate.Count - 1];
             }
             else
             {
                 // Nessuna carta giocata: consideriamo 0
-                ultimaCarta = 0;
-            }
-
-            // Determino quante carte giocare
-            int carteDaGiocare;
-            if (ultimaCarta >= 1 && ultimaCarta <= 3)
-            {
-                carteDaGiocare = ultimaCarta;
-            }
-            else
-            {
-                carteDaGiocare = -1;
+                carteDaGiocare = 0;
             }
 
             // Chiamo il metodo di gioco con il numero calcolato

@@ -9,7 +9,7 @@ namespace ChiCercaTrova
             Giocatore giocatore1 = new Giocatore();
             Giocatore giocatore2 = new Giocatore();
             Simulazione_Gioco gioco = new Simulazione_Gioco();
-
+            
             gioco.Dai_Carte(giocatore1, giocatore2);
 
             Console.WriteLine("Carte Giocatore 1:");

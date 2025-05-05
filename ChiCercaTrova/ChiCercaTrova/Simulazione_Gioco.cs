@@ -31,12 +31,16 @@ namespace ChiCercaTrova
                 if (g1.ControllaEGioca(carte_Giocate))
                 {
                     g2.PrendiCarte(carte_Giocate);
-     
                 }
-                if (g2.ControllaEGioca(carte_Giocate))
+
+                if(g2.mazzo.Count > 0)
                 {
-                    g1.PrendiCarte(carte_Giocate);
+                    if (g2.ControllaEGioca(carte_Giocate))
+                    {
+                        g1.PrendiCarte(carte_Giocate);
+                    }
                 }
+                
             }
 
             if (g1.mazzo.Count == 0)
