@@ -8,7 +8,17 @@ namespace ChiCercaTrova
         // Metodo che distribuisce le carte ai due giocatori
         public void Dai_Carte(Giocatore g1, Giocatore g2)
         {
-            List<int> mazzo = new List<int> { 1, 1, 2, 2, 3, 3, 0, 0, 0, 0 };
+            List<int> mazzo = new List<int> { 1, 1, 1, 1,
+                                              2, 2, 2, 2,
+                                              3, 3, 3, 3,
+                                              0, 0, 0, 0,
+                                              0, 0, 0, 0,
+                                              0, 0, 0, 0,
+                                              0, 0, 0, 0,
+                                              0, 0, 0, 0,
+                                              0, 0, 0, 0,
+                                              0, 0, 0, 0};
+            
             Random r = new Random();
             while (mazzo.Count > 0)
             {
@@ -43,6 +53,16 @@ namespace ChiCercaTrova
                 
             }
 
+            if (g1.mazzo.Count == 0)
+            {
+                g2.PrendiCarte(carte_Giocate);
+            }
+
+            if (g2.mazzo.Count == 0)
+            {
+                g1.PrendiCarte(carte_Giocate);
+            }
+            
             if (g1.mazzo.Count == 0)
             {
                 Console.WriteLine("Ha vinto il giocatore 2");
