@@ -1,0 +1,3 @@
+-mettere 20 carte nel mazzo generale
+-usare le permutazioni per tutte le possibili combinazioni iniziali 
+-riconoscere le partite infinite tramite una lista con le combinazioni già visualizzate in precedenza 
